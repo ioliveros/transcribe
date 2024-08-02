@@ -7,7 +7,12 @@ import logging
 import threading
 import numpy as np
 from pydub import AudioSegment
+
 import warnings
+import __main__
+
+
+from config import FRAMES_PER_BUFFER, FORMAT, CHANNELS, RATE, AUDIO_THRESHOLD
 
 warnings.filterwarnings("ignore", category=FutureWarning, module='whisper')
 warnings.filterwarnings("ignore", category=UserWarning, module='whisper')
@@ -17,13 +22,8 @@ logger.setLevel(getattr(logging, os.environ.get('LOG_LEVEL', 'INFO')))
 handler = logging.StreamHandler(sys.stdout)
 logger.addHandler(handler)
 
-FRAMES_PER_BUFFER = 1024
-FORMAT = pyaudio.paInt16
-CHANNELS = 1
-RATE = 16000
-THRESHOLD = 500
 
-is_recording = True
+__main__.is_recording = True
 model = whisper.load_model("base")
 
 
@@ -44,6 +44,7 @@ def steps(p, chunk_ctr, frames):
     print(result['text'].strip())
 
 def record():
+
     p = pyaudio.PyAudio()
     stream = p.open(
         format=FORMAT,
@@ -57,11 +58,11 @@ def record():
         chunk_size = 50
         chunk_ctr = 0
         logger.debug("start recording..")
-        while is_recording:
+        while __main__.is_recording:
             try:
                 data = stream.read(FRAMES_PER_BUFFER, exception_on_overflow=False)
                 audio_data = np.frombuffer(data, dtype=np.int16)
-                if np.max(audio_data) > THRESHOLD:
+                if np.max(audio_data) > AUDIO_THRESHOLD:
                     frames.append(data)
                     if len(frames) > chunk_size:
                         steps(p, chunk_ctr, frames)
@@ -81,11 +82,13 @@ def record():
 
 
 def run():
-    
+
     recording_thread = threading.Thread(target=record)
     recording_thread.start()
 
     input("press enter to stop recording. \n\n")
-    
-    is_recording = False
+    __main__.is_recording = False
     recording_thread.join()
+
+if __name__ == "__main__":
+    run()
