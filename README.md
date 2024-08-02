@@ -2,28 +2,58 @@
 
 A naive approach to transcribe real-time audio using pyaudio and huggingface [whisper model](https://huggingface.co/openai/whisper-base.en)
 
+We are using [faster-whisper](https://github.com/SYSTRAN/faster-whisper) a fast inference engine for transformer models, a re-implementation of openai's whisper.
 
-#### dependencies (only tested in MacOS)
 
+By default it's using `cpu` as device_type, for faster results use `cuda` if available in your machine.
+
+```python
+WHISPER_DEVICE_TYPE="cuda"
+WHISPER_COMPUTE_TYPE="int8_float16"
+```
+
+----
 When you encounter build issues with `PyAudio`
 ```
 note: This error originates from a subprocess, and is likely not a problem with pip.
 ERROR: Failed building wheel for PyAudio
 ```
-Make sure you install dependencies below first
+
+Install dependencies
+
+
+### MacOS
 ```
 brew install portaudio
 ```
 
-#### install requirements
+### Ubuntu (linux)
+```
+sudo apt update
+sudo apt install portaudio19-dev
+pkg-config --modversion portaudio-2.0
+```
+
+##### install requirements (make sure to have python >= 3.8 version)
 ```bash
 python3 -m venv env
 source env/bin/activate
+env/bin/python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
 
-#### Run script
+##### Run script
 ```bash
-python3 transcriber.py
+python3 transcribe.py
+```
+
+-----
+
+
+#### faster-whisper issues(?) might be similar [issue](https://github.com/SYSTRAN/faster-whisper/issues/935)
+
+```bash
+source env/bin/activate
+pip install --force-reinstall "faster-whisper @ https://github.com/SYSTRAN/faster-whisper/archive/refs/heads/master.tar.gz"
 ```
