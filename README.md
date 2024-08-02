@@ -4,6 +4,10 @@ A naive approach to transcribe real-time audio using pyaudio and huggingface [wh
 
 We are using [faster-whisper](https://github.com/SYSTRAN/faster-whisper) a fast inference engine for transformer models, a re-implementation of openai's whisper.
 
+Overview
+----
+![Screen Shot 2024-08-03 at 3 52 21 AM](https://github.com/user-attachments/assets/3ad24aa1-1e10-4cc9-ad28-a5d06a9d05b4)
+
 
 By default it's using `cpu` as device_type, for faster results use `cuda` if available in your machine.
 
