@@ -4,12 +4,16 @@ A naive approach to transcribe real-time audio using pyaudio and huggingface [wh
 
 
 #### dependencies (only tested in MacOS)
+
+When you encounter build issues with `PyAudio`
 ```
 note: This error originates from a subprocess, and is likely not a problem with pip.
-  ERROR: Failed building wheel for PyAudio
+ERROR: Failed building wheel for PyAudio
+```
+Make sure you install dependencies below first
 ```
 brew install portaudio
-
+```
 
 #### install requirements
 ```bash
