@@ -1,0 +1,7 @@
+import pyaudio
+
+FRAMES_PER_BUFFER = 1024
+FORMAT = pyaudio.paInt16
+CHANNELS = 1
+RATE = 16000
+AUDIO_THRESHOLD = 500
