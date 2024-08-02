@@ -1,0 +1,6 @@
+PyAudio==0.2.14
+torch
+torchvision
+torchaudio
+openai-whisper
+pydub==0.25.1
