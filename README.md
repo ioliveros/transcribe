@@ -1,9 +1,11 @@
 # transcribe
 
-transcribe real-time audio using pyaudio and hugging face [whisper model]([url](https://huggingface.co/openai/whisper-base.en ))
+A naive approach to transcribe real-time audio using pyaudio and hugging face [whisper model]([url](https://huggingface.co/openai/whisper-base.en ))
+
 
 #### dependencies (only tested in MacOS)
 brew install portaudio
+
 
 #### install requirements
 ```bash
