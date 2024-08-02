@@ -27,6 +27,7 @@ THRESHOLD = 500
 is_recording = True
 model = whisper.load_model("base")
 
+
 def save_chunk(p, chunk_ctr, frames):
     audio = AudioSegment(
         data=b"".join(frames),
@@ -42,8 +43,6 @@ def steps(p, chunk_ctr, frames):
     file_path = save_chunk(p, chunk_ctr, frames)
     result = model.transcribe(file_path)
     print(result['text'].strip())
-    # sys.stdout.write(result['text'] + ' ')
-    # sys.stdout.flush()
 
 def record():
     p = pyaudio.PyAudio()
@@ -81,9 +80,13 @@ def record():
     stream.close()
     p.terminate()
 
-recording_thread = threading.Thread(target=record)
-recording_thread.start()
 
-input("press enter to stop recording. \n\n")
-is_recording = False
-recording_thread.join()
+def run():
+    
+    recording_thread = threading.Thread(target=record)
+    recording_thread.start()
+
+    input("press enter to stop recording. \n\n")
+    
+    is_recording = False
+    recording_thread.join()
