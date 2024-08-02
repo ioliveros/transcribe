@@ -48,6 +48,9 @@ pip install -r requirements.txt
 python3 transcribe.py
 ```
 
+![Screen Shot 2024-08-03 at 3 41 21 AM](https://github.com/user-attachments/assets/d4b9c818-6798-45fa-8d60-f7c7f63adfbe)
+
+
 -----
 
 
